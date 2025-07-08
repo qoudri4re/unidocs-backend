@@ -8,6 +8,7 @@ import usersRouter from "./routes/users";
 import studentsRouter from "./routes/students.route";
 import superAdminRouter from "./routes/super-admin.route";
 import { bootstrapSuperAdmin } from "./models/seeders/super-admin.seeder";
+import { bootstrapOptions } from "./models/seeders/universities.seeder";
 
 require("dotenv").config();
 
@@ -18,6 +19,7 @@ var app = express();
     await sequelize.sync({ alter: true });
     console.log("👌 Database synchronized successfully");
     bootstrapSuperAdmin();
+    bootstrapOptions();
   } catch (error) {
     console.error("❌ Failed to synchronize database schema:", error);
   }

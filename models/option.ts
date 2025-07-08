@@ -1,12 +1,8 @@
-import {
-  Table,
-  Column,
-  Model,
-  DataType,
-} from "sequelize-typescript";
+import { Table, Column, Model, DataType } from "sequelize-typescript";
+import { OptionCreationAttributes } from "../interfaces/super-admin/option.interface";
 
 @Table({ tableName: "options", timestamps: false })
-export class Option extends Model<Option> {
+export class Option extends Model<Option, OptionCreationAttributes> {
   @Column({
     type: DataType.INTEGER,
     autoIncrement: true,
