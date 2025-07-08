@@ -1,5 +1,3 @@
-import { Optional } from "sequelize";
-
 export interface PendingVerificationAttributes {
   contact_value: string;
   otp: string;

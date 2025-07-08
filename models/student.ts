@@ -6,10 +6,32 @@ import {
   Default,
   Unique,
 } from "sequelize-typescript";
-import { StudentCreationAttributes } from "../interfaces/student.interface";
+import { StudentCreationAttributes } from "../interfaces/student/student.interface";
 
-@Table({ tableName: "students", timestamps: true })
+@Table({
+  tableName: "students",
+  timestamps: true,
+  scopes: {
+    withPassword: {
+      attributes: {
+        include: ["password"],
+      },
+    },
+    forStudent: {
+      attributes: {
+        exclude: ["password"],
+      },
+    },
+  },
+})
 export class Student extends Model<Student, StudentCreationAttributes> {
+  @Column({
+    type: DataType.UUID,
+    defaultValue: DataType.UUIDV4,
+    primaryKey: true,
+  })
+  id!: string;
+
   @Column({ type: DataType.STRING, allowNull: false })
   full_name!: string;
 
@@ -43,8 +65,8 @@ export class Student extends Model<Student, StudentCreationAttributes> {
   @Column({ type: DataType.STRING, allowNull: true })
   uploaded_image_url?: string;
 
-  @Column({ type: DataType.BIGINT, allowNull: true })
-  school_id?: number;
+  @Column({ type: DataType.UUID, allowNull: true })
+  school_id?: string;
 
   @Default(false)
   @Column({ type: DataType.BOOLEAN })

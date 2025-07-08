@@ -12,6 +12,7 @@ import { DocumentType } from "./document_type";
 import { SchoolAdmin } from "./school_admin";
 import { SuperAdmin } from "./super_admin";
 import { PendingVerification } from "./pending_verification";
+import { Option } from "./option";
 
 // Update these values with your actual database credentials
 let sequelize: Sequelize;
@@ -37,6 +38,7 @@ try {
       AppConfig,
       DocumentType,
       PendingVerification,
+      Option,
     ],
   });
 
@@ -67,4 +69,5 @@ export {
   AuditLog,
   AppConfig,
   DocumentType,
+  Option,
 };

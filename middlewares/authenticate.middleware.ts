@@ -1,12 +1,12 @@
 import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
-
+import { AuthenticatedRequest } from "../types/custom";
 interface JwtPayload {
   id: string;
 }
 
 export const authenticateJWT = (
-  req: Request,
+  req: AuthenticatedRequest,
   res: Response,
   next: NextFunction
 ) => {
@@ -20,8 +20,11 @@ export const authenticateJWT = (
   }
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET!) as JwtPayload;
-    (req as any).user = decoded;
+    const decoded: JwtPayload = jwt.verify(
+      token,
+      process.env.JWT_SECRET!
+    ) as JwtPayload;
+    req.user = decoded;
     next();
   } catch (err) {
     res

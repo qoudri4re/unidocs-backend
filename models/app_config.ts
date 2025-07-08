@@ -11,12 +11,16 @@ import { School } from "./school";
 
 @Table({ tableName: "app_configs", timestamps: true })
 export class AppConfig extends Model<AppConfig> {
-  @Column({ type: DataType.BIGINT, autoIncrement: true, primaryKey: true })
-  config_id!: number;
+  @Column({
+    type: DataType.UUID,
+    defaultValue: DataType.UUIDV4,
+    primaryKey: true,
+  })
+  id!: string;
 
   @ForeignKey(() => School)
-  @Column({ type: DataType.BIGINT, allowNull: false })
-  school_id!: number;
+  @Column({ type: DataType.UUID, allowNull: false })
+  school_id!: string;
 
   @BelongsTo(() => School)
   school?: School;
