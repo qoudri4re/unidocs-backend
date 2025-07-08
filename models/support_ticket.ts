@@ -16,9 +16,16 @@ export enum TicketStatus {
 
 @Table({ tableName: "support_tickets", timestamps: true })
 export class SupportTicket extends Model<SupportTicket> {
+  @Column({
+    type: DataType.UUID,
+    defaultValue: DataType.UUIDV4,
+    primaryKey: true,
+  })
+  id!: string;
+
   @ForeignKey(() => Student)
-  @Column({ type: DataType.BIGINT, allowNull: false })
-  student_id!: number;
+  @Column({ type: DataType.UUID, allowNull: false })
+  student_id!: string;
 
   @BelongsTo(() => Student)
   student?: Student;

@@ -12,9 +12,16 @@ import { Student } from "./student";
 
 @Table({ tableName: "documents", timestamps: true })
 export class Document extends Model<Document> {
+  @Column({
+    type: DataType.UUID,
+    defaultValue: DataType.UUIDV4,
+    primaryKey: true,
+  })
+  id!: string;
+
   @ForeignKey(() => DocumentRequest)
-  @Column({ type: DataType.BIGINT, allowNull: false })
-  document_request_id!: number;
+  @Column({ type: DataType.UUID, allowNull: false })
+  document_request_id!: string;
 
   @BelongsTo(() => DocumentRequest)
   documentRequest?: DocumentRequest;
@@ -26,8 +33,8 @@ export class Document extends Model<Document> {
   file_type!: string;
 
   @ForeignKey(() => Student)
-  @Column({ type: DataType.BIGINT })
-  issued_by_student_id?: number;
+  @Column({ type: DataType.UUID })
+  issued_by_student_id?: string;
 
   @BelongsTo(() => Student, "issued_by_student_id")
   issuedByStudent?: Student;

@@ -22,16 +22,23 @@ export enum PaymentMethod {
 
 @Table({ tableName: "payments", timestamps: false })
 export class Payment extends Model<Payment> {
+  @Column({
+    type: DataType.UUID,
+    defaultValue: DataType.UUIDV4,
+    primaryKey: true,
+  })
+  id!: string;
+
   @ForeignKey(() => DocumentRequest)
-  @Column({ type: DataType.BIGINT, allowNull: false })
-  document_request_id!: number;
+  @Column({ type: DataType.UUID, allowNull: false })
+  document_request_id!: string;
 
   @BelongsTo(() => DocumentRequest)
   documentRequest?: DocumentRequest;
 
   @ForeignKey(() => Student)
-  @Column({ type: DataType.BIGINT, allowNull: false })
-  student_id!: number;
+  @Column({ type: DataType.UUID, allowNull: false })
+  student_id!: string;
 
   @BelongsTo(() => Student)
   student?: Student;

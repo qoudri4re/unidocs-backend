@@ -26,16 +26,23 @@ export enum DeliveryMethod {
 
 @Table({ tableName: "document_requests", timestamps: true })
 export class DocumentRequest extends Model<DocumentRequest> {
+  @Column({
+    type: DataType.UUID,
+    defaultValue: DataType.UUIDV4,
+    primaryKey: true,
+  })
+  id!: string;
+
   @ForeignKey(() => Student)
-  @Column({ type: DataType.BIGINT, allowNull: false })
-  student_id!: number;
+  @Column({ type: DataType.UUID, allowNull: false })
+  student_id!: string;
 
   @BelongsTo(() => Student)
   student?: Student;
 
   @ForeignKey(() => School)
-  @Column({ type: DataType.BIGINT, allowNull: false })
-  school_id!: number;
+  @Column({ type: DataType.UUID, allowNull: false })
+  school_id!: string;
 
   @BelongsTo(() => School)
   school?: School;
